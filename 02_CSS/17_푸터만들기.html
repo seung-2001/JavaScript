@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>푸터임</title>
+    <style>
+      div,
+      footer,
+      p {
+        box-sizing: border-box;
+      }
+      footer {
+        width: 1000px;
+        height: 160px;
+      }
+
+      /*-----------------이 밑에거만 나중에 들고가야징----------------*/
+
+      #footer_1,
+      #footer_2 {
+        width: 100%;
+      }
+      #footer_1 {
+        height: 20%;
+        background: rgba(255, 68, 0, 0.734);
+      }
+      #footer_2 {
+        height: 80%;
+      }
+      #footer_1 > a {
+        text-decoration: none;
+        color: rgba(0, 0, 0, 0.7);
+        margin: 33px;
+        vertical-align: middle;
+        &:hover {
+          color: yellowgreen;
+        }
+      }
+
+      /* p 태그에 대한 세부스타일 설정*/
+      #footer_2 > p {
+        width: 100%;
+        margin: 0;
+      }
+      #p_1 {
+        height: 80%;
+        font-size: 13px;
+        padding-top: 5px;
+        padding-left: 4px;
+      }
+      #p_2 {
+        height: 20%;
+        font-size: 11px;
+        padding-left: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <footer>
+      <div id="footer_1">
+        <a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> |
+        <a href="#">강사구인</a>
+      </div>
+      <div id="footer_2">
+        <p id="p_1">
+          강남점 1관 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F,
+          6F <br />
+          강남점 2관 : 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F
+          <br />
+          강남점 3관 : 서울특별시 강남구 테헤란로 130 호산빌딩 5F, 6F <br />
+          종로점 : 서울특별시 중구 남대문로 120 그레이츠 청계(구 대일빌딩) 2F,
+          3F
+        </p>
+        <p id="p_2">
+          Copyright © 1998-2025 KH JongNo A-Class All RightReserved
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

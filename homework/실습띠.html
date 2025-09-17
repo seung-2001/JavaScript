@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>앙실습띠</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      div {
+        box-sizing: border-box;
+      }
+      #wrap {
+        width: 1200px;
+        height: 400px;
+        margin: auto;
+        box-shadow: 1px 1px 1px lightgrey;
+      }
+
+      .card {
+        width: 230px;
+        height: 360px;
+        padding-bottom: 20px;
+        display: inline-block;
+
+        &:hover {
+          box-shadow: 1px 2px 4px lightgrey;
+        }
+      }
+
+      .card > img {
+        width: 230px;
+        height: 300px;
+      }
+
+      .card > h4 {
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .card > p {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>배열과 객체의 활용</h1>
+
+    <h3>* 객체배열 써보기</h3>
+
+    <!-- 너낌만 보기 -->
+    <div id="wrap"></div>
+
+    <script>
+      window.onload = function () {
+        const list = [
+          {
+            image: "",
+            title: "",
+            cardname: "",
+            price: "",
+            date: "",
+          },
+        ];
+      };
+    </script>
+  </body>
+</html>
