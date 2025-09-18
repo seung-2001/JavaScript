@@ -139,10 +139,128 @@
       }
 
       // 고전 이벤트 방식
-      document.getElementById("btn4").onclick = () => {
+      document.getElementById("btn4").onclick = (e) => {
         // 먼저 이벤트 타입부터 알아보자!
-        console.log(window.event);
+        // console.log(window.event);
+        // console.log(this.event);
+
+        // event target을 알아내는 방법
+        // console.log(window.event.target);
+        // console.log(this.event.target);
+        // console.log(e.target);
+
+        window.event.target.style.background = "red";
+        this.event.target.style.color = "white";
+        e.target.innerText = "클릭했다능~~";
       };
+
+      // 표준 이벤트 방식
+      document.getElementById("btn5").addEventListener("click", function (e) {
+        console.log(this);
+        // window.event.target == e.target
+        // == this(function키워드가 붙은 함수)
+        // == this.target(=>array Function)
+
+        window.event.target.style.background = "black";
+        e.target.innerHTML = "이벤트발생~~";
+        this.style.color = "white";
+      });
+    </script>
+
+    <hr />
+
+    <h2>3. 태그별 기본적으로 달려있는 이벤트 제거하기</h2>
+
+    <p>
+      기본적으로 이벤트를 가지고 있는 요소 <br />
+      - a태그 : 클릭시 href속성값으로 URL요청보내는 이벤트 달림 <br />
+      - form 태그 안에 있는 submit버튼 : <br />
+      클릭시 사용자가 입력한 값들을 action속성 값으로 요청 보내는 이벤트 달림
+      <br /><br /><br />
+    </p>
+
+    <a href="http://www.naver.com" onclick="alert('하이')">네이버로~~</a>
+    <br />
+
+    <a href="http://www.naver.com" onclick="return false;">네이버로</a><br />
+    <!-- 방법 1. return false를 onclick속성에 넣어줌 -->
+
+    <script>
+      function returnFn() {
+        if (1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    </script>
+
+    <a href="http://www.naver.com" onclick="return returnFn();">너나가~</a>
+    <!-- 방법2. return 함수()호출 -->
+
+    <br /><br /><br />
+
+    USER_ID VARCHAR2(15) UNIQUE NOT NULL
+
+    <form action="회원가입URL">
+      <fieldset>
+        <legend>회원가입</legend>
+
+        아이디 : <input type="text" name="userId" id="userId" /> <br />
+        <label style="font-size: 10px; color: lightslategray">
+          영문자 또는 숫자로만 5 ~ 12자 사이로 입력해주세요.
+        </label>
+        <br /><br /><br />
+
+        <input type="submit" value="가입하기" onclick="return validate();" />
+      </fieldset>
+    </form>
+
+    <script>
+      function validate() {
+        // 사용자가 입력한 아이디값이 유효한 값인지
+        // 검사하는 함수
+        // 유효하지 않은 값이라면 요청을 못가게 할거임
+
+        const userId = document.getElementById("userId").value;
+
+        // console.log(userId);
+
+        // 영문자 or 숫자로만 + 5 ~ 12자 사이
+        // 비교대상 == 사용자가 입력한값(userId)
+        // 사용자가 입력한 값이 영문자 또는 숫자인가
+        // 사용자가 입력한 값이 5 ~ 12자 사이
+
+        /*
+        if (5 <= userId.length && userId.length <= 12) {
+          for (let i = 0; i < userId.length; i++) {
+            if (
+              ("a" <= userId.charAt(i) && userId.charAt(i) <= "z") ||
+              ("A" <= userId.charAt(i) && userId.charAt(i) <= "Z") ||
+              ("0" <= userId.charAt(i) && userId.charAt(i) <= "9")
+            ) {
+              return true;
+            }
+          }
+        }
+        */
+
+        // 아이디 값에 대한 유효성 검사
+        // 복잡하고 머리아픔 => 코드 읽을때도 힘들다
+        // 값에 대한 유효성 검사를 위해 정규표현식을 사용해보자
+        // 영문자 또는 숫자로만 5 ~ 12자 사이
+
+        const regExp = /^[A-Za-z0-9]{5,12}$/;
+        console.log(regExp);
+
+        // 패턴을 만족하는지 검사 => test()
+        if (regExp.test(userId)) {
+          return true;
+        }
+
+        alert("엣헵!!! 어디 감히 조건을 만족하지 않고 보내려고 하느냐!");
+        return false;
+      }
     </script>
   </body>
 </html>
