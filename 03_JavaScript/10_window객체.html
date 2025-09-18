@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이거 좀 어려울지도...?</title>
+
+    <style>
+      body {
+        background-color: lightgreen;
+        color: rgb(176, 116, 82);
+        font-weight: 800;
+      }
+
+      .area {
+        width: 300px;
+        height: 100px;
+        background: greenyellow;
+        margin: auto;
+        overflow: scroll;
+      }
+
+      .small {
+        height: 200px;
+      }
+      .big {
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>브라우저 인터페이스</h1>
+
+    <p>
+      브라우저 상에서 자바스크립트라는 언어로 브라우저라는 프로그램을<br />
+      제어할 수 있도록 BOM과 DOM이라는 인터페이스를 제공됨 <br /><br />
+
+      - BOM(Browser Object Model) : 브라우저 관련 <br />
+      - DOM(Document Object Model) : HTML문서 관련 <br />
+    </p>
+
+    <h3>window객체가 제공하는 메소드</h3>
+
+    <!-- 
+        window.alert();
+        window.console.log();
+        window.confirm();
+        window.prompt();
+    -->
+
+    <h4>window.open()</h4>
+
+    <a href="http://www.naver.com" target="_blank">오픈~</a>
+
+    <button onclick="openFn();">옛날옛적 호랑이 담배피던 시절</button>
+
+    <script>
+      function openFn() {
+        // window.open();
+        window.open("http://www.naver.com", "하하", "width=400", "height=500");
+      }
+    </script>
+
+    <hr />
+
+    <h4>* window.setTimeout(함수, ms)</h4>
+
+    <button onclick="timeout-btn">나는 버튼이다.</button>
+
+    <script>
+      function timeout() {
+        // alert("안녕?");
+
+        // 버튼을 누르면 5초뒤에 alert이 뜨게 만들고 싶음
+
+        /*
+        window.setTimeout(() => {
+          alert("나는 사실 5초 뒤에 뜸");
+        }, 5000);
+        */ arguments;
+
+        const newWindow = open(); // 창이 새로 열리고 : 새창 window객체
+        newWindow.alert("이 버튼을 누르면 3초 뒤 창이 닫힙니다.");
+
+        setTimeout(() => {
+          newWindow.close();
+        }, 3000);
+
+        // 내가 지정한 일정 시간 후 에 "딱 한번"만 핸들러를 수행
+      }
+    </script>
+
+    <hr />
+
+    <h4>window.setInterval(함수, ms)</h4>
+
+    <button onclick="timer();">째깍째깍</button>
+    <div id="area1" class="area"></div>
+
+    <script>
+      function timer() {
+        const area = document.getElementById("area1");
+        const value = "ㅋ";
+        let count = 10;
+
+        window.setInterval(() => {
+          //   area.innerHTML += value;
+          //   area.innerHTML = count--;
+          // 9번 객체_part02.html 파일을 참고하여
+          // 시계 만들기
+          // 화면에
+          // 11:02:30 오전
+          // 요렇게 매 초마다 바뀌게 출력하게 만들기 시~~~~~~작!
+          const date = new Date();
+          area.innerHTML = `현재 시간 = ${date.getHours()} : ${date.getMinutes()} : ${date.getSeconds()} `;
+          if (date.getHours > 12) {
+            area.innerHTML = "오후";
+          } else {
+            area.innerHTML += "오전";
+          }
+        }, 1000);
+
+        // setInterval : 내가 지정한 간격마다 "매 번" 핸들러를 수행
+      }
+    </script>
+
+    <hr />
+
+    <h3>* BOM(Browser Object Model)</h3>
+
+    <p>location, screen, navigator</p>
+
+    <h4>location 객체</h4>
+
+    <button onclick="console.log(location)">로케이션 확인!!!!</button>
+
+    <a href="https://www.naver.com">하이빠레빠란스~~</a>
+    <!-- a태그는 애초에 클릭 시 요청할 URL을 작성할 수 있는 속성을 제공 -->
+
+    <p>브라우저의 주소입력창 => URL(href속성값)</p>
+
+    <button onclick="loc();">매커니즘~</button>
+
+    <script>
+      function loc() {
+        location.href = "https://www.naver.com";
+      }
+    </script>
+
+    <!-- 새로고침 -->
+    <button onclick="location.reload();">새로고침</button>
+    <button onclick="location.href = loaction.href">새로고침</button>
+
+    <!-- 
+        assign(), replace()
+        replace() == 뒤로가기를 사용할 수 없음
+    -->
+
+    <h5>screen객체</h5>
+    <button onclick="console.log(screen)">스크린</button>
+    <!-- 사용자가 보고있는 화면에 대한 정보 -->
+
+    <h5>navigator</h5>
+    <button onclick="console.log(navigator)">나비</button>
+    <!-- 브라우저에 대한 정보 -->
+
+    <hr />
+
+    <h2>* DOM(Document Object Model)</h2>
+
+    <p>
+      - 요소 노드(Element Node) : 태그 자체를 의미 - 텍스트 노드(Text Node) :
+      태그 내에 기록되는 내용을 의미하기 텍스트노드가 존재하지 않는 요소(빈태그)
+      : input, img, br, hr 텍스트노드가 있는 요소 : div, button, span, label...
+    </p>
+
+    <div id="area3" class="area small"></div>
+    <button onclick="addElement();">빠른</button>
+
+    <script>
+      function addElement() {
+        // 동적으로 요소를 만들자
+        // 처음 문서 로딩할 때는 존재하지 않다가
+        // 나중에 만들어지는 요소 == 동적인 요소
+
+        // 컨트롤러에서 응답받은 문자열 => user01
+        /*
+                <h3>user01</h3> 
+            */
+
+        const userId = "user01";
+
+        // 1. 문자열로 만드는 방법
+        // document.getElementById("area3").innerHTML = `<h3>${userId}</h3>`;
+
+        // 2. document객체가 제공하는 메소드를 통해 "요소객체"를 만들기
+        // 2_1) elementNode만들기 : document.createElement('태그명');
+        const elementNode = document.createElement("h3");
+        console.log(elementNode);
+        // 우리가 나중에 배우게 될 React는 가상 DOM이라는 개념을 사용하는데
+
+        // 2_2) textNode만들기 : document.createTextNod('텍스트');
+        const textNode = document.createTextNode(userId);
+        console.log(textNode);
+
+        // 3. 두 개의 노드를 연결
+        // a의 자식으로 b를 추가
+        // a.appendChild(b);
+        elementNode.appendChild(textNode);
+        console.log(elementNode);
+        // document.querySelector("#area3").innerHTML = elementNode;
+        document.querySelector("#area3").appendChild(elementNode);
+
+        // 텍스트 노드가 없는 요소
+
+        const img = document.createElement("img");
+        //    ↑ 이거객체임
+        img.src =
+          "data:image/jpeg;base64,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";
+
+        document.getElementById("area3").appendChild(img);
+      }
+    </script>
+  </body>
+</html>

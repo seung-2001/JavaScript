@@ -3,70 +3,179 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>앙실습띠</title>
-
+    <title>부산 숙소 리스트</title>
     <style>
       * {
         margin: 0;
         padding: 0;
-      }
-      div {
         box-sizing: border-box;
+      }
+      body {
+        font-family: sans-serif;
+        background: #fafafa;
       }
       #wrap {
         width: 1200px;
-        height: 400px;
-        margin: auto;
-        box-shadow: 1px 1px 1px lightgrey;
+        margin: 40px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
       }
-
-      .card {
-        width: 230px;
-        height: 360px;
-        padding-bottom: 20px;
-        display: inline-block;
-
+      #section-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        border-bottom: 1px solid lightgray;
+      }
+      #card-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      #card {
+        flex: 0 0 calc(25% - 20px);
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: 0.3s;
         &:hover {
-          box-shadow: 1px 2px 4px lightgrey;
+          cursor: pointer;
+          box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+          transform: translateY(-3px);
         }
       }
-
-      .card > img {
-        width: 230px;
-        height: 300px;
+      #card > img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
       }
-
-      .card > h4 {
-        font-size: 18px;
-        font-weight: 800;
+      #info {
+        padding: 12px;
       }
-
-      .card > p {
+      #location {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      #title {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 4px;
+      }
+      #rating {
+        font-size: 13px;
+        color: #333;
+      }
+      #price {
+        margin-top: 4px;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 700;
+      }
+      #price > span {
+        font-weight: 400;
+        color: #555;
+        font-size: 12px;
       }
     </style>
   </head>
   <body>
-    <h1>배열과 객체의 활용</h1>
-
-    <h3>* 객체배열 써보기</h3>
-
-    <!-- 너낌만 보기 -->
-    <div id="wrap"></div>
-
+    <div id="wrap">
+      <div>
+        <div id="section-title">부산 인기 숙소</div>
+        <div id="card-list" class="popular"></div>
+      </div>
+      <div>
+        <div id="section-title">신규 등록 숙소</div>
+        <div id="card-list" class="new"></div>
+      </div>
+    </div>
     <script>
-      window.onload = function () {
-        const list = [
-          {
-            image: "",
-            title: "",
-            cardname: "",
-            price: "",
-            date: "",
-          },
-        ];
-      };
+      const stays = [
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1157133225923295926/original/1664a4f5-dde0-404b-abb8-75b15946d44c.jpeg?im_w=720",
+          location: "부산의 아파트",
+          title: "yezas 광안 c-8 #통유리고층뷰#...",
+          rating: 4.95,
+          price: 251059,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1254611685750285523/original/5a7cbab5-d254-4068-81f2-7aeec2554cf9.jpeg?im_w=720",
+          location: "해온 숙박",
+          title: "동래구의 아파트",
+          rating: 4.87,
+          price: 80453,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/4978439c-932f-43de-9810-56123a7c5da9.jpg?im_w=720",
+          location: "더쉘광안●광안리1등●바다1초●...",
+          title: "부산의 아파트",
+          rating: 4.72,
+          price: 341783,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-1131507844127411852/original/da311b88-3fc8-4942-95e4-3500812a2808.jpeg?im_w=720",
+          location: "아라 게스트하우스 301호",
+          title: "부산의 호텔",
+          rating: 4.91,
+          price: 72929,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/miso/Hosting-1438951537489133431/original/706aa0b3-83e8-441a-9aa4-f1039e09caa7.jpeg?im_w=720",
+          location: "[느슨●주차무료●Chilll●느긋한...]",
+          title: "부산의 아파트",
+          rating: 4.8,
+          price: 119824,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4NzU3Mjc3NDMxOTAyNDAzOA%3D%3D/original/00f00a19-b5ca-49fe-b7db-f103e56ee18a.jpeg?im_w=720",
+          location: "[부산역1분]모노수 #2 감성숙소...",
+          title: "부산의 집",
+          rating: 4.93,
+          price: 154470,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTQzOTA1OTM4MDUwMzg4NDc2Nw==/original/a9ef458f-316d-4b07-aa2f-324f56698fc4.jpeg?im_w=720",
+          location: "[부산역KTX30초]무채색 오션뷰 /...",
+          title: "부산의 아파트",
+          rating: 4.66,
+          price: 197058,
+        },
+        {
+          image:
+            "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTE4MDc0MTU4NjQ1OTkwMzA3NQ%3D%3D/original/c8c1ae29-229e-4794-a14b-c25e77b32b72.jpeg?im_w=720",
+          location: "광안리/오픈특가/해수욕장도보3...",
+          title: "광안리의 집",
+          rating: 4.84,
+          price: 187153,
+        },
+      ];
+      function renderCards(targetClass, data) {
+        const html = data
+          .map(
+            (stay) => `
+          <div id="card">
+            <img src="${stay.image}" alt="${stay.title}">
+            <div id="info">
+              <div id="location">${stay.location}</div>
+              <div id="title">${stay.title}</div>
+              <div id="rating">★ ${stay.rating}</div>
+              <div id="price">₩${stay.price.toLocaleString()} <span>/박</span></div>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+        document.querySelector(`.${targetClass}`).innerHTML = html;
+      }
+      renderCards("popular", stays.slice(0, 4));
+      renderCards("new", stays.slice(4, 8));
     </script>
   </body>
 </html>
