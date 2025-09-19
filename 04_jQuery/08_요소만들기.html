@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <title>요소 만들기</title>
+    <style>
+      .item {
+        background-color: gold;
+        width: 100px;
+        height: 100px;
+        margin: 5px;
+        border: 2px solid goldenrod;
+        line-height: 51px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <h1>오늘은 금요일이니까</h1>
+
+    <h3>Content영역과 관련된 메소드</h3>
+
+    <pre>
+          선택된 요소의 content영역(여는태그와 닫는태그사이)을 반환해주거나
+          또는 변경해주는 메소드들 <br>
+          
+          - $("선택자").html()
+          - $("선택자").text()
+          - 선택된 요소의 content영역 값을 반환해줌 <br>
+          - $("선택자").html("인자값")
+          - $("선택자").text("인자값")
+          - 선택된 요소의 content영역의 값을 전달한 인자값으로 바꿔줌 <br>
+          
+          => 이때, html()는 HTML태그를 인식
+        </pre>
+
+    <h3 id="test1">
+      <a href="https://www.naver.com">네이버로 이동~</a>
+    </h3>
+    <h3 id="test2"></h3>
+
+    <button id="btn1">뻐튼</button>
+
+    <script>
+      $(function () {
+        $("#btn1").click(function () {
+          const url = prompt("이동할 URL를 입력해주세요.");
+          const test1Content = $("#test1").html();
+          console.log(test1Content);
+          $("#test2").html(test1Content);
+          $("#test2").children("a").attr("href", url);
+        });
+      });
+    </script>
+
+    <hr />
+
+    <h2>요소 생성 및 제거</h2>
+
+    <h3>* 동적으로 요소 생성</h3>
+
+    <div id="area1"></div>
+    <button id="btn2">요소 생성하기</button>
+
+    <script>
+      $(function () {
+        $("#btn2").on("click", function () {
+          // <p> ~~~</p>
+          // 1. 문자열로 만드는 방법
+          const el1 = "<p>CreateElement By Text</p>";
+          document.getElementById("area1").innerHTML = el1;
+
+          // 2. jQuery방식
+          const el2 = $("<p></p>").text("CreateElement By jQuery");
+
+          /*
+            $("#area1").append(el2);
+            $("#area1").append(el1);
+            */
+          $("#area1").append(createMyElement("h1", "하이하이"));
+        });
+
+        function createMyElement(element, content) {
+          return `<${element}>${content}</${element}>`;
+        }
+      });
+    </script>
+
+    <hr />
+
+    <h3>* 추가 관련 메소드</h3>
+
+    <pre>
+    선택된 요소를 기준으로 새롭게 생성된 요소를 추가해주는 메소드
+    
+    $(A).append(B) : A요소 내부에 가장 뒷부분에 B를 추가(자식) <br>
+    $(A).prepend(B) : A요소 내부에 가장 앞부분에 B를 추가(자식) <br>
+    $(A).before(B) : A요소 앞 부분에 B를 추가(동위) <br>
+    $(A).after(B) : A요소 뒷 부분에 B를 추가(동위) <br>
+    
+    <hr>
+    
+    $(B).appendTo(A) : B를 A요소 내부에 뒷부분에 추가(자식) <br>
+    $(B).prependTo(A) : B를 A요소 내부에 앞부분에 추가(자식) <br>
+    $(B).insertBefore(A) : B를 A요소 앞부분에 추가(동위) <br>
+    $(B).insertAfter(A) : B를 A요소 뒷부분에 추가(동위) <br>
+</pre>
+
+    <!-- A == h2 -->
+    <!-- B == span -->
+
+    <h2 id="test4">
+      A
+      <div>div</div>
+      <!-- B -->
+    </h2>
+
+    <h2 id="test5">
+      A
+      <!-- B -->
+      <div>div</div>
+    </h2>
+
+    <!-- B -->
+    <h2 id="test6">
+      A
+      <div>div</div>
+    </h2>
+
+    <h2 id="test7">
+      A
+      <div>div</div>
+    </h2>
+    <!-- B -->
+
+    <script>
+      $(function () {
+        const span = '<span style = "color:red">나는span이다</span>';
+
+        // console.log(span);
+        // console.log($('#test1'));
+        $("#test4").append(span);
+        $("#test5").prepend(span);
+        $("#test6").before(span);
+        $("#test7").after(span);
+      });
+    </script>
+
+    <hr />
+
+    <h3>* 요소 객체 복제하는 메소드</h3>
+
+    <p>
+      $("선택자").clone(true / false); <br />
+      복제한 요소 이벤트도 복제할건지 지정(생략 시 false)
+    </p>
+
+    <button id="clone">복제</button>
+
+    <div id="clone-area">
+      <!-- 복제할 요소 -->
+      <div class="item">
+        <p>골드바</p>
+      </div>
+    </div>
+    <div id="clone-result"></div>
+
+    <script>
+      $(function () {
+        $("#clone-area")
+          .children()
+          .click(function () {
+            $(this).css("color", "goldenrod");
+          });
+        // 복제 버튼 클릭 시 해당 요소를 복사해서
+        // clone-result의 자식요소로 추가
+        $("#clone").click(function () {
+          const $copyEl = $("#clone-area>.item").clone(true);
+          $("#clone-result").append($copyEl);
+        });
+      });
+    </script>
+
+    <hr />
+
+    <h3>* 요소객체 제거 / 잘라내기 메소드</h3>
+
+    <p>
+      $("선택자").empty() : 선택된 요소의 모든 후손요소 제거 <br /><br />
+
+      $("선택자").remove() / detach() : 해당 요소 잘라내기 <br />
+      - remove : 요소의 이벤트가 날아가버림 <br />
+      - detach : 이벤트가 같이 잘라내짐
+    </p>
+
+    <button id="empty">empty</button> <br />
+    <button id="remove">remove</button> <br />
+    <button id="detach">detach</button> <br /><br /><br />
+
+    <div id="remove-area">
+      <div id="item1" class="item">
+        <span>날 제거해라</span>
+      </div>
+    </div>
+    <hr />
+    <div id="remove-result"></div>
+
+    <script>
+      $(function () {
+        $("#empty").click(function () {
+          $("#remove-area").empty();
+        });
+
+        $("#remove").click(function () {
+          const $el = $("#item1").remove(); // 제거 == 제거된 요소를 반환
+          $("#remove-result").append($el);
+        });
+        $("#item1").mouseenter(function () {
+          $(this).css("color", "red");
+        });
+
+        $("#detach").click(function () {
+          const $el = $("#item1").detach();
+          $("#remove-result").append($el1);
+        });
+      });
+    </script>
+
+    <hr />
+
+    <h3>시각적인 효과 메소드</h3>
+
+    <p>
+      페이지 내부에서 애니메이션 효과를 만들기 위해 사용하는 메소드 <br /><br />
+    </p>
+
+    <button class="btn btn-primary">하이 아임버튼</button>
+
+    <button type="button" class="btn btn-outline-primary">Primary</button>
+    <button type="button" class="btn btn-outline-secondary">Secondary</button>
+    <button type="button" class="btn btn-outline-success">Success</button>
+    <button type="button" class="btn btn-outline-danger">Danger</button>
+    <button type="button" class="btn btn-outline-warning">Warning</button>
+    <button type="button" class="btn btn-outline-info">Info</button>
+    <button type="button" class="btn btn-outline-light">Light</button>
+    <button type="button" class="btn btn-outline-dark">Dark</button>
+
+    <div class="card" style="width: 18rem">
+      <img
+        src="data:image/jpeg;base64,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"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">츄!</h5>
+        <p class="card-text">츄는 츄</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#myMenu"
+    >
+      메뉴보기
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="myMenu"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">띠용띠용??</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >이메일주소쓰세요</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="name@example.com"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >하고싶은말 쓰세요</label
+              >
+              <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
